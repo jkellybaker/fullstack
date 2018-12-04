@@ -8,9 +8,12 @@ namespace GiveNTake.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("")]
+        [Route("Home")]
+        [Route("Home/Index")]
         public IActionResult Index()
         {
-            return Content("Hello from MVC!");
+            return View();
         }
     }
 }

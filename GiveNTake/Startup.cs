@@ -22,7 +22,23 @@ namespace GiveNTake
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Home", action = "Index" });
+            });
+            app.UseMvc(routes =>
+            {
+                routes
+                    .MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}")
+                    .MapRoute(name: "api", template: "api/{controller}/{action}/{id?}");
+            });
+
         }
     }
 }
